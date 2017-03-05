@@ -50,7 +50,7 @@ function displayTopics(){
 	//When user clicks on the button it saves the value of the attribute to this variable
 	var userSearch = $(this).attr('data-name');
 	var queryUrl = 'http://api.giphy.com/v1/gifs/search?q=' + userSearch + '&api_key=dc6zaTOxFJmzC';
-	
+	var isAnimated = true;
 	$.ajax({
 		url: queryUrl,
 		method: 'GET'
@@ -66,14 +66,21 @@ function displayTopics(){
 			//Appends the image to the dom
 			$('.gifImg').append(newImg);	
 		}
-		
+		//Replaces _s with "" to change from still gif to non-still gif 
 		$('.imgStyle').on('click',function(){
-				var string = $(this).attr('src').replace('w_s',"");
-				$(this).attr('src',string)	
+				if(isAnimated){
+					var string = $(this).attr('src').replace('w_s',"");
+					$(this).attr('src',string);
+					console.log(string);
+					isAnimated = false;
+				}
+				else{
+					var string = $(this).attr('src').replace('200.gif','200w_s.gif');
+					$(this).attr('src',string);
+					console.log(string);
+					isAnimated = true;
+				}
 			});
-		//Testing
-		// console.log(response.data[i].images.fixed_height.url);
-		// console.log(newImg);
 	});
 }
 function renderBtn(){
