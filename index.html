@@ -11,128 +11,25 @@
   <!-- Bootstrap-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<link rel="stylesheet" type="text/css" href="assets/style.css">
-
-</script>
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
 	<div class='container-fluid'>
 			<!-- Buttons -->
 			<div class="row">
-				<div id="topicBtnSec" class="col-md-12"></div>
+				<div id="btn-section" class="col-md-12"></div>
 			</div>
 			<div class="row">
-				<div class="gifImg col-md-10"></div>
+				<div class="gifSection col-md-10"></div>
 				
 				<form class="col-md-2">
 					Add a topic
 					<input type="text" id="userInput">
-					<input type="submit" class="btn-info" id="submit">
+					<input type="submit" class="btn-info" id="submit-btn">
 				</form>	
 			<p class='demo'></p>
 			</div>
 	</div>
-</head>
-<body>
-
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-/*Global Variables
-==============================================================*/
-var topics = ['skate','dogs','animals','music',
-			  'anime','food','cats','video games', 
-			  'rpg', 'florida','pittsburgh',
-			  'philadelphia','beer', 'funny','politics','elon musk',
-			  'space','programming', 'computers', 'web development',
-			  'coding', 'front-end','back-end','history'];
-
-
-/*Functions
-==============================================================*/
-function displayTopics(){
-//Variables
-	var apiKey = 'dc6zaTOxFJmzC';
-	//When user clicks on the button it saves the value of the attribute to this variable
-	var userSearch = $(this).attr('data-name');
-	var queryUrl = 'http://api.giphy.com/v1/gifs/search?q=' + userSearch + '&api_key=dc6zaTOxFJmzC';
-	var isAnimated = true;
-	$.ajax({
-		url: queryUrl,
-		method: 'GET'
-	}).done(function(response){
-		//Removes images when new button is clicked
-		$('.gifImg').empty();
-		//Creates 10 images 
-		for(var i = 0; i < 10; i++){ 
-			//Creats new image element and adds src attr 
-			var newImg = $('<img>').attr('src',response.data[i].images.fixed_width_still.url);
-			//Adds imgStyle class so I can customize the style in css
-			newImg.addClass('imgStyle');
-			//Appends the image to the dom
-			$('.gifImg').append(newImg);	
-		}
-		//Replaces _s with "" to change from still gif to non-still gif 
-		$('.imgStyle').on('click',function(){
-				if(isAnimated){
-					var string = $(this).attr('src').replace('w_s',"");
-					$(this).attr('src',string);
-					console.log(string);
-					isAnimated = false;
-				}
-				else{
-					var string = $(this).attr('src').replace('200.gif','200w_s.gif');
-					$(this).attr('src',string);
-					console.log(string);
-					isAnimated = true;
-				}
-			});
-	});
-}
-function renderBtn(){
-	//Emptys everything in topic section
-	//When new button is created it emptys out everything in div and re-creates the buttons plus the new one
-	$('#topicBtnSec').empty();	
-	//Create buttons on what is in the topics array
-	for(var i=0;i < topics.length;i++){
-		// Creates new btns
-		var newBtn = $('<button>');
-		//Give buttons a class
-		newBtn.addClass('ranTopic btn-success');
-		//Give each button an attribute
-		newBtn.attr('data-name',topics[i]);
-		//Add Text to buttons
-		newBtn.text(topics[i]);
-		//Add buttons to Dom
-		$('#topicBtnSec').append(newBtn);
-		//Testing
-		//console.log(newBtn);
-	}
-}
-function newTopics(){
-	$('#submit').on('click',function(event){
-		event.preventDefault();
-		//When user enters info into text box it grabs that info
-		var textBoxInfo = $('#userInput').val().trim();
-		//Push the info user puts into text box to array
-		topics.push(textBoxInfo);
-		//Creates New buttons
-		renderBtn();
-		//Testing
-		console.log(textBoxInfo);
-		console.log(topics);
-	});
-}
-
-/*Main
-==============================================================*/
-$(document).on('click','.ranTopic',displayTopics);
-renderBtn();
-newTopics();
-
-});
-</script>
-
-
-
+<script type="text/javascript" src="assets/javascript/gif.js"></script>
 </body>
 </html>
