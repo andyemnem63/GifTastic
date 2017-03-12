@@ -4,3 +4,8 @@ button,.btn{
 img{
 	padding: 25px;
 }
+.gifSection div{
+	display: inline-block;
+	font-size: 20px;
+	text-align: center;
+}

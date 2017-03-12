@@ -61,21 +61,28 @@ var displayGif = function(){
 	}).done(function(response){
 	//removes images when new btn is clicked
 	$('.gifSection').empty();
-
 	for(var i = 0;i < 10; i++){
-	//Still & Animated Images
-	stillImgUrl = response['data'][i]['images']['fixed_height_still']['url'];
-	animateImgUrl = response['data'][i]['images']['fixed_height']['url'];
-	//Assign image element to newImg variable
-	var newImg = $('<img>');
-	//Give img element stillImgUrl, animated  & src attribute
-	newImg.attr('data-still',stillImgUrl);
-	newImg.attr('data-animate',animateImgUrl);
-	newImg.attr('src',stillImgUrl);
-	newImg.attr('data-type','still');
-	newImg.addClass('gifImage');
-	//Adds Images to DOM
-	$('.gifSection').append(newImg); 
+		//Still & Animated Images
+		stillImgUrl = response['data'][i]['images']['fixed_height_still']['url'];
+		animateImgUrl = response['data'][i]['images']['fixed_height']['url'];
+		//rating
+		var rating = response['data'][i]['rating'];
+		//Assign image element to newImg variable
+		var newDiv = $('<div>'); //********
+		var newP = $('<p>'); //*********
+		var newImg = $('<img>');
+		//Give img element stillImgUrl, animated  & src attribute
+		newImg.attr('data-still',stillImgUrl);
+		newImg.attr('data-animate',animateImgUrl);
+		newImg.attr('src',stillImgUrl);
+		newImg.attr('data-type','still');
+		newImg.addClass('gifImage');
+		//Give p element the rating texts
+		newP.html('Giphy Rating: ' + rating);
+		//Adds Images to DOM
+		$(newP).appendTo(newDiv)
+		$(newImg).appendTo(newDiv); 
+		$('.gifSection').append(newDiv); //**********
 	}
 	//Testing
 	console.log('The button value is = ' + btnVal);
