@@ -27,10 +27,23 @@ $(document).ready(function() {
         }
     }
 
+//When submit button is clicked .............
+$('#submit-btn').on('click', function(event) {
+    submit();
+});
+
+//When Enter is pressed.....
+$(".search").keydown(function(event){
+    if(event.keyCode == 13){
+        console.log("working");
+        submit();
+        $('.search').val("");
+        return false
+    }
+});
+
+
     var submit = function() {
-        //When submit button is clicked .............
-        $('#submit-btn').on('click', function(event) {
-            //Prevent from the default form/input events from occuring //***** COME BACK TO THIS
             event.preventDefault();
             //Get input text value
             var inputVal = $('#userInput').val();
@@ -41,7 +54,6 @@ $(document).ready(function() {
             //Testing
             console.log(inputVal);
             console.log(topics);
-        });
     }
     var displayGif = function() {
         //Gets the value of the button that is clicked
@@ -109,7 +121,7 @@ $(document).ready(function() {
     /*Main
     ==============================================================*/
     createBtn();
-    submit();
+    // submit();
     $(document).on('click', '.gif', displayGif);
     $(document).on('click', '.gifImage', gifAnimate);
 });
